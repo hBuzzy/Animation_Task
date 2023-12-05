@@ -33,7 +33,6 @@ public:
     ~MainWindow() final {
         delete ui;
     }
-private slots:
 private:
     Ui::MainWindow* ui;
 };

@@ -49,13 +49,13 @@ private slots:
             }
         ));
         moveAnimation->setEndValue(QRect({parentWidth - width(), 0}, buttonSize));
-        moveAnimation->setDuration(animationDuration_);
+        moveAnimation->setDuration(kAnimationDuration_);
         moveAnimation->setEasingCurve(easingFunction_->GetType());
 
         auto* colorAnimation = new QPropertyAnimation(this, "color");
         colorAnimation->setStartValue(QColor(255, 255, 255));
         colorAnimation->setEndValue(QColor(50, 50, 50));
-        colorAnimation->setDuration(animationDuration_);
+        colorAnimation->setDuration(kAnimationDuration_);
         colorAnimation->setEasingCurve(easingFunction_->GetType());
 
         auto* group = new QParallelAnimationGroup;
@@ -67,7 +67,7 @@ private slots:
 private:
     QColor color_;
     EasingFunction* easingFunction_;
-    static constexpr uint animationDuration_ = 2000;
+    static constexpr uint kAnimationDuration_ = 2000;
 };
 
 #endif
