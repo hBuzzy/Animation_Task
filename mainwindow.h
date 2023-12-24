@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPropertyAnimation>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -15,6 +16,9 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    void moveItems();
+    void changeButtonColor();
 
 private:
     Ui::MainWindow *ui_;
