@@ -6,15 +6,15 @@
 class OwnButton : public QPushButton {
     Q_OBJECT
 
-    Q_PROPERTY(QColor color READ GetColor WRITE SetColor NOTIFY ColorChanged FINAL)
+    Q_PROPERTY(QColor color READ getColor WRITE setColor NOTIFY colorChanged FINAL)
 
 public:
     OwnButton(QWidget *parent = nullptr);
-    QColor GetColor() const;
-    void SetColor(const QColor &newColor);
+    QColor getColor() const;
+    void setColor(const QColor &newColor);
 
 signals:
-    void ColorChanged();
+    void colorChanged();
 
 private:
     QColor color_;

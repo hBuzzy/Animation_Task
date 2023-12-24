@@ -2,11 +2,11 @@
 
 OwnButton::OwnButton(QWidget *parent) : QPushButton(parent) {}
 
-QColor OwnButton::GetColor() const {
+QColor OwnButton::getColor() const {
     return color_;
 }
 
-void OwnButton::SetColor(const QColor &newColor) {
+void OwnButton::setColor(const QColor &newColor) {
 
     if (color_ == newColor)
         return;
@@ -19,5 +19,5 @@ void OwnButton::SetColor(const QColor &newColor) {
                       .arg(color_.green())
                       .arg(color_.blue()));
 
-    emit ColorChanged();
+    emit colorChanged();
 }
