@@ -19,14 +19,15 @@ public:
 public slots:
     void startAnimation();
     void setEasingFunction(int type);
+    void curvePreviewChanged(int index);
 
-    void updateValue(qreal value);
     void setValue(qreal value);
 
 private:
     qreal value_;
     QPropertyAnimation *animation_;
     QEasingCurve::Type currentEasingType_;
+    int currentCurveIndex_ = 1;
 
     qreal getValue() const;
 

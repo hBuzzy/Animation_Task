@@ -3,7 +3,6 @@
 #include "ui_mainwindow.h"
 
 #include <QVBoxLayout>
-#include <QComboBox>
 #include <QPushButton>
 #include <QPainter>
 #include <QDebug>
@@ -24,13 +23,21 @@ MainWindow::MainWindow(QWidget *parent)
     easingComboBox->addItem("EaseInSine");
     easingComboBox->addItem("EaseOutSine");
     easingComboBox->addItem("EaseInOutSine");
-    connect(easingComboBox, SIGNAL(activated(int)), animatedItem_, SLOT(setEasingFunction(int)));
+    connect(easingComboBox, QOverload<int>::of(&QComboBox::activated), animatedItem_, &AnimatedItem::setEasingFunction);
+
+    curveComboBox_ = new QComboBox(this);
+    curveComboBox_->addItem("Синусоида");
+    curveComboBox_->addItem("Косинусоида");
+    curveComboBox_->addItem("Кубическая функция");
+    curveComboBox_->addItem("Экспоненциальная функция");
+    connect(curveComboBox_, QOverload<int>::of(&QComboBox::activated), this, &MainWindow::curvePreviewChanged);
 
     QPushButton *animateButton = new QPushButton("Анимировать", this);
-    connect(animateButton, SIGNAL(clicked()), animatedItem_, SLOT(startAnimation()));
+    connect(animateButton, &QPushButton::clicked, animatedItem_, &AnimatedItem::startAnimation);
 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->addWidget(easingComboBox);
+    layout->addWidget(curveComboBox_);
     layout->addWidget(animateButton);
     layout->addWidget(view);
 
@@ -38,11 +45,15 @@ MainWindow::MainWindow(QWidget *parent)
     widget->setLayout(layout);
     setCentralWidget(widget);
 
-    connect(animatedItem_, SIGNAL(valueChanged(qreal)), this, SLOT(updateStatusBar(qreal)));
+    connect(animatedItem_, &AnimatedItem::valueChanged, this, &MainWindow::updateStatusBar);
 }
 
 MainWindow::~MainWindow() {
     delete ui;
+}
+
+void MainWindow::curvePreviewChanged(int index) {
+    animatedItem_->curvePreviewChanged(index);
 }
 
 void MainWindow::updateStatusBar(qreal value) {

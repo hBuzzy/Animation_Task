@@ -4,7 +4,9 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
-#include <QGraphicsView>  // Добавленный заголовочный файл
+#include <QGraphicsView>
+#include <QComboBox>
+
 #include "animateditem.h"
 
 QT_BEGIN_NAMESPACE
@@ -22,11 +24,14 @@ public:
 
 private slots:
     void updateStatusBar(qreal value);
+    void curvePreviewChanged(int index);
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene_;
     AnimatedItem *animatedItem_;
+    QComboBox *curveComboBox_;
+
 };
 
 #endif // MAINWINDOW_H
