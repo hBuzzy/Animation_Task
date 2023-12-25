@@ -101,16 +101,21 @@ void MainWindow::generateColorAimation(QPropertyAnimation *colorAnimation) {
     colorAnimation->start();
 }
 
-void MainWindow::on_comboBox_activated(int index)
-{
-    if(index == 0) {
+void MainWindow::on_comboBox_activated(int index) {
+    enum indexes {
+        linearIndex = 0,
+        outQuadIndex = 1,
+        inLasticIndex = 2
+    };
+
+    if (index == linearIndex) {
         currentEasingCurve_ = QEasingCurve::Linear;
-    } else
-        if(index == 1) {
-            currentEasingCurve_ = QEasingCurve::OutQuad;
-    } else
-        if(index == 2) {
-            currentEasingCurve_ = QEasingCurve::InElastic;
+    }
+    if (index == outQuadIndex) {
+        currentEasingCurve_ = QEasingCurve::OutQuad;
+    }
+    if (index == inLasticIndex) {
+        currentEasingCurve_ = QEasingCurve::InElastic;
     }
     chart_->removeAllSeries();
     chart_->addSeries(generateSeries());
@@ -123,23 +128,23 @@ QSplineSeries* MainWindow::generateSeries() {
     qreal i = 0.0f;
     qreal c4 = (2 * M_PI) / 3;
 
-    if(currentEasingCurve_ == QEasingCurve::InElastic) {
+    if (currentEasingCurve_ == QEasingCurve::InElastic) {
         while (i <= threshold) {
             *series << QPointF(i, pow(2, 10 * i - 10) * sin((i * 10 - 10.75) * c4));
             i += step;
         }
-    } else
-        if(currentEasingCurve_ == QEasingCurve::Linear) {
-            while (i <= threshold) {
-                *series << QPointF(i, i);
-                i += step;
+    }
+    if (currentEasingCurve_ == QEasingCurve::Linear) {
+        while (i <= threshold) {
+            *series << QPointF(i, i);
+            i += step;
+        }
+    }
+    if (currentEasingCurve_ == QEasingCurve::OutQuad) {
+        while (i <= threshold) {
+            *series << QPointF(i, 1 - (1 - i) * (1 - i));
+            i += step;
             }
-        } else
-            if(currentEasingCurve_ == QEasingCurve::OutQuad) {
-                while (i <= threshold) {
-                    *series << QPointF(i, 1 - (1 - i) * (1 - i));
-                    i += step;
-                }
-            }
-        return series;
+        }
+    return series;
 }
