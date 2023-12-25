@@ -13,7 +13,6 @@ void OwnButton::setColor(const QColor &newColor) {
 
     color_ = newColor;
 
-    /*Задаем цвет кнопки*/
     setStyleSheet(QString("background-color: rgb(%1, %2, %3);")
                       .arg(color_.red())
                       .arg(color_.green())
